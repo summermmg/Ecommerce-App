@@ -13,72 +13,32 @@ export const fetchCart = createAsyncThunk('cart/fetchCart', async () => {
     return data
 })
 
+export const addProduct = createAsyncThunk('cart/addProduct',
+     async (product) => {
+         const response = await axios.post('/api/cart',product)
+         return response.data
+     }
+)
+
+export const updateProduct = createAsyncThunk('cart/updateProduct',
+      async (newCart) => {
+        const response = await axios.put(`/api/cart`,newCart)
+        return response.data
+      }  
+)
+
+export const deleteProduct = createAsyncThunk('cart/deleteProduct',
+      async (productIdObj) => {
+          const response = await axios.delete(`/api/cart`,{data:productIdObj})
+          return response.data
+      }
+)
+
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        productAdded:{
-            reducer(state,action) {
-                state.products.push(action.payload)
-                state.totalQty+=action.payload.cartQty
-                state.totalAmt+=action.payload.cartTotal
-            },
-            prepare(product) {
-                return {
-                    payload: product
-                       }
-            }
-        },
-        itemIncremented: {
-            reducer(state,action) {
-                state.products.map(product => {
-                    if (product.id === action.payload.id) {
-                        product.cartQty ++
-                        product.cartTotal+=product.price   
-                        state.totalQty++
-                        state.totalAmt+=product.price
-                    }
-                    return state
-                })
-            },
-            prepare(cartItem) {
-                return {
-                    payload: cartItem
-                }
-            }
-        },
-        itemDecremented: {
-            reducer(state,action) {
-                state.products.map(product => {
-                    if (product.id === action.payload.id) {
-                        product.cartQty --
-                        product.cartTotal-=product.price   
-                        state.totalQty--
-                        state.totalAmt-=product.price
-                    }
-                    return state
-                })
-            },
-            prepare(cartItem) {
-                return {
-                    payload: cartItem
-                }
-            }
-        },
-        itemRemoved: {
-            reducer(state,action) {
-                state.products = state.products.filter(product => 
-                    product.id !== action.payload.id
-                )
-                state.totalQty-=action.payload.cartQty
-                state.totalAmt-=action.payload.cartTotal
-            },
-            prepare(product) {
-                return {
-                    payload: product
-                }
-            }
-        } 
+
     },
     extraReducers: {
         [fetchCart.pending]: (state,action) => {
@@ -91,9 +51,17 @@ const cartSlice = createSlice({
         [fetchCart.failed] : (state,action) => {
             state.status = 'failed'
             state.error = action.error
+        },
+        [addProduct.fulfilled]: (state,action) => {
+            state.cart = action.payload
+        },
+        [updateProduct.fulfilled]: (state,action) => {
+            state.cart = action.payload.cart
+        },
+        [deleteProduct.fulfilled]: (state,action) => {
+            state.cart = action.payload.cart
         }
-    } 
+    }
 })
 
-export const {productAdded,itemIncremented,itemDecremented,itemRemoved} = cartSlice.actions 
 export default cartSlice.reducer

@@ -1,6 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import axios from 'axios'
-// import {data} from '../../data'
 
 const initialState = {
     products: [],
@@ -21,23 +20,7 @@ const productsSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
-        productLiked:{
-            reducer(state,action) {
-                state.products.map(
-                    product => {
-                        if (product.id === action.payload.id) {
-                            product.like++
-                        }
-                        return state
-                    }
-                )
-            },
-            prepare(product) {
-                return {
-                    payload: product
-                       }
-            }
-        },
+
     },
     extraReducers: {
         [fetchProducts.pending]: (state,action) => {
@@ -54,5 +37,4 @@ const productsSlice = createSlice({
     } 
 })
 
-export const {productLiked} = productsSlice.actions
 export default productsSlice.reducer

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {useSelector,useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {LikeButton} from './LikeButton'
+import {LikeButton} from '../product/LikeButton'
 import {fetchProducts} from './productsSlice'
 
 
@@ -9,20 +9,20 @@ export const ProductsList = () => {
 
     const dispatch = useDispatch()
     const products = useSelector(state => state.products.products)
-    const productStatus = useSelector(state => state.products.status)
+    const productsStatus = useSelector(state => state.products.status)
     const error = useSelector(state => state.products.error)
 
     useEffect(() => {
-      if (productStatus === 'idle') {
+      if (productsStatus === 'idle') {
         dispatch(fetchProducts())
       }
-    }, [productStatus,dispatch])
+    }, [productsStatus,dispatch])
  
 
     let content
-    if (productStatus === 'loading') {
+    if (productsStatus === 'loading') {
       content = <div className="loader">Loading</div> 
-    } else if (productStatus === 'succeeded') {
+    } else if (productsStatus === 'succeeded') {
       content = products.map(product => (
         <div key={product.id} class="card product-container shadow-sm">
            <img class="card-img-top" width="100%" height="55%" src={product.imgSrc} alt="blush" />
@@ -40,12 +40,11 @@ export const ProductsList = () => {
                  <Link to={`/products/${product.id}`} type="button" class="btn btn-sm btn-outline-secondary">View Product Detail</Link>
                  <LikeButton type="button" class="btn btn-sm btn-outline-secondary" product={product} />
                </div>
-               {/* <small class="text-muted">9 mins</small> */}
              </div>
            </div>
          </div>
        ))
-    } else if (productStatus === 'failed') {
+    } else if (productsStatus === 'failed') {
       content = <div>{error}</div>
     }
 

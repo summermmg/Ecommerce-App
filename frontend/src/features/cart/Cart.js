@@ -1,7 +1,7 @@
 import React from 'react'
 import {useSelector} from 'react-redux'
-import {IncrementedButton} from '../products/IncrementButton'
-import {DecrementedButton} from '../products/DecrementButton'
+import {IncrementedButton} from '../product/IncrementButton'
+import {DecrementedButton} from '../product/DecrementButton'
 
 
 export const Cart = () => {
@@ -12,6 +12,7 @@ export const Cart = () => {
     //       dispatch(fetchCart())
     //     }
     //   }, [cartStatus,dispatch])
+
     const cart = useSelector(state => state.cart.cart)
     const error = useSelector(state => state.cart.error)
   
@@ -24,8 +25,8 @@ export const Cart = () => {
                 <th scope="row" class="py-0"><img width="70px" height="70px" src={product.imgSrc} alt="blush" /></th>
                 <td>{product.name}</td>
                 <td>${product.price}</td>
-                <td><DecrementedButton cartItem={product} excerpt/>{product.cartQty} 
-                <IncrementedButton cartItem={product} excerpt/>
+                <td><DecrementedButton productId={product.id} cart={cart} cartItem={product} excerpt/>{product.cartQty} 
+                <IncrementedButton productId = {product.id} cart = {cart} cartItem={product} excerpt/>
                 </td>
                 <td>${product.cartTotal}</td>
             </tr>

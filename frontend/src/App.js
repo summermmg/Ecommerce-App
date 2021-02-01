@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter,Switch,Route,Redirect,} from 'react-router-dom'
 import {ProductsList} from './features/products/ProductsList'
-import { SingleProductPage } from './features/products/SingleProductPage';
+import { SingleProductPage } from './features/product/SingleProductPage';
 import {Navbar} from './app/Navbar'
 import {Cart} from './features/cart/Cart'
 
