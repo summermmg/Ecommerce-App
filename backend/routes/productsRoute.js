@@ -22,4 +22,15 @@ router.get('/:id', (req,res) => {
     }
 })
 
+//Add likeButton feature
+router.put('/', (req,res) => {
+    const found = data.products.find(
+        product => product.id === req.body.productId
+    )
+    if (found) {
+        found.like+=1
+        res.json({products: data.products,product:found})
+    }
+})
+
 module.exports = router

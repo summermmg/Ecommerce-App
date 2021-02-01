@@ -17,13 +17,7 @@ const productSlice = createSlice({
     name: 'product',
     initialState,
     reducers: {
-        productLiked:{
-            reducer(state,action) {
-                            state.product[0].like++
-                        return state
-                    }
 
-        },
     },
     extraReducers: {
         [fetchProduct.pending]: (state,action) => {
@@ -36,9 +30,8 @@ const productSlice = createSlice({
         [fetchProduct.failed] : (state,action) => {
             state.status = 'failed'
             state.error = action.error
-        }
+        },
     } 
 })
 
-export const {productLiked} = productSlice.actions
 export default productSlice.reducer

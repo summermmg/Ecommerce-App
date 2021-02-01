@@ -16,6 +16,11 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async ()
     return data
 })
 
+export const likeProduct = createAsyncThunk('product/likeProduct', async (productIdObj) => {
+    const response = await axios.put('/api/products',productIdObj)
+    return response.data
+})
+
 const productsSlice = createSlice({
     name: 'products',
     initialState,
@@ -33,6 +38,9 @@ const productsSlice = createSlice({
         [fetchProducts.failed] : (state,action) => {
             state.status = 'failed'
             state.error = action.error
+        },
+        [likeProduct.fulfilled]: (state,action) => {
+            state.products = action.payload.products            
         }
     } 
 })

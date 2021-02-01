@@ -11,21 +11,22 @@ export const SingleProductPage = ({match}) => {
 
     const dispatch=useDispatch()
     const productId = match.params.productId
-    const product = useSelector(state => state.product.product[0])
+
+    useEffect(() => {
+        dispatch(fetchProduct(productId))
+    }, [productId,dispatch])
+    //page will rerender everytime the product state changes
+    const product = useSelector(state => state.products.products.find(product => 
+        product.id === productId
+    ))
     const productStatus = useSelector(state => state.product.status)
     const error = useSelector(state => state.product.error)
     
-    useEffect(() => {
-          dispatch(fetchProduct(productId))
-    }, [productId,dispatch])
-
     const cart = useSelector(state => 
         state.cart.cart)
-
-    const cartItem = useSelector(state =>
-        state.cart.cart.products.find(
+    const cartItem = cart.products.find(
             product => product.id === productId
-    ))
+    )
 
     const onAddCartClicked = () => {
         if (!cartItem) {

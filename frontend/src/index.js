@@ -6,7 +6,8 @@ import App from './App';
 import store from './app/store';
 import { Provider } from 'react-redux';
 // import * as serviceWorker from './serviceWorker';
-import {fetchCart} from './features/cart/cartSlice'
+
+import { fetchCart } from './features/cart/cartSlice';
 
 store.dispatch(fetchCart())
 ReactDOM.render(

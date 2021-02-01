@@ -34,7 +34,6 @@ export const ProductsList = () => {
                 <li>${product.price}</li>
                 <li>{product.description}</li>
               </ul>
-              {/* <Link to={`/products/${product.id}`} className="btn btn-lg btn-primary">View Product Detail</Link> */}
              <div class="d-flex justify-content-between align-items-center">
                <div class="btn-group">
                  <Link to={`/products/${product.id}`} type="button" class="btn btn-sm btn-outline-secondary">View Product Detail</Link>
@@ -51,7 +50,6 @@ export const ProductsList = () => {
     return (
         <section class='text-dark'>
             <h2 class="my-5">Products</h2>
-            {/* <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-5"> */}
             <div class="products-container">
             {content}
             </div>

@@ -5,13 +5,8 @@ import {DecrementedButton} from '../product/DecrementButton'
 
 
 export const Cart = () => {
-    // const dispatch = useDispatch()
+    
     const cartStatus = useSelector(state => state.cart.status)
-    // useEffect(() => {
-    //     if (cartStatus === 'idle') {
-    //       dispatch(fetchCart())
-    //     }
-    //   }, [cartStatus,dispatch])
 
     const cart = useSelector(state => state.cart.cart)
     const error = useSelector(state => state.cart.error)

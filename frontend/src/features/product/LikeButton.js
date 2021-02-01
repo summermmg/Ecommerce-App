@@ -1,12 +1,13 @@
 import React from 'react'
 import {useDispatch} from 'react-redux'
-import { productLiked } from './productSlice'
+import {likeProduct} from '../products/productsSlice'
 
 export const LikeButton = ({product}) => {
     const dispatch = useDispatch()
 
     const onLikeClicked = () => {
-        dispatch(productLiked(product))
+        dispatch(likeProduct({
+            productId: product.id}))
     }
     return (
         <button
